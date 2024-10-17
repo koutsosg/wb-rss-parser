@@ -24,3 +24,5 @@ coverage/
 # IDE specific
 .vscode/
 .idea/
+# json
+rss-data.json

@@ -1,11 +1,12 @@
 const axios = require("axios");
 const xml2js = require("xml2js");
 const { promisify } = require("util");
+const fs = require("fs");
 
 //xml2js parseString to return promise
 const parseXML = promisify(xml2js.parseString);
-
-async function fetchRSSFeed(rssUrl) {
+const writeFile = promisify(fs.writeFile);
+async function fetchRSSFeed(rssUrl, outputFile) {
   try {
     // Fetch RSS with axios
     const response = await axios.get(rssUrl);
@@ -14,7 +15,10 @@ async function fetchRSSFeed(rssUrl) {
       explicitArray: false,
       mergeAttrs: true,
     });
-    console.log(jsonData);
+    if (outputFile) {
+      await writeFile(outputFile, JSON.stringify(jsonData, null, 2), "utf-8");
+      console.log(`RSS data written to ${outputFile}`);
+    }
     return jsonData;
   } catch (error) {
     throw new Error(`Error fetching or parsing RSS feed: ${error.message}`);
