@@ -12,11 +12,11 @@ async function testRSS() {
       const podslug = slugify(podcast?.title);
       return {
         podcast: {
+          id: podcast["podcast:guid"],
           title: podcast?.title,
           slug: podslug,
           description: podcast?.description,
           copyright: podcast?.copyright,
-          guid: podcast["podcast:guid"],
           funding_url: podcast["podcast:funding"]?.url,
           persons: podcast["podcast:person"]?.map((person) => ({
             name: person?._,
@@ -38,10 +38,10 @@ async function testRSS() {
           owner_name: podcast["itunes:owner"]["itunes:name"],
           owner_email: podcast["itunes:owner"]["itunes:email"],
           episodes: podcast?.item?.map((episode) => ({
+            id: episode?.guid["_"],
             title: episode?.title,
             season: episode["podcast:season"],
             episode_type: episode["itunes:episodeType"],
-            guid: episode?.guid["_"],
             link: episode?.link,
             description: episode?.description?.trim(),
             pub_date: episode?.pubDate,
@@ -64,6 +64,7 @@ async function testRSS() {
       };
     };
     const datas = simplifyPodcastData(data);
+    console.log(datas);
     console.log(datas.podcast.episodes[0]);
     console.log("Successfully fetched RSS feed.");
   } catch (error) {
