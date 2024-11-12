@@ -1,5 +1,5 @@
-const { fetchRSSFeed } = require("./index");
-const { slugify } = require("./slugify");
+const { fetchRSSFeed } = require("../index");
+const { slugify } = require("../slugify");
 
 async function testRSS() {
   const rssUrl = "https://feeds.transistor.fm/terror-404"; // Replace with your RSS feed URL

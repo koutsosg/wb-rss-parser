@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A generic RSS feed parser library",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "jest"
   },
